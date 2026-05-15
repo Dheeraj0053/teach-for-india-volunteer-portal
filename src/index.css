@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-navy: #0b1f3a;
+  --color-accent: #f4c542;
+  --color-secondary: #2563eb;
+  --color-offwhite: #f8fafc;
+  --color-card: #ffffff;
+  --color-text: #1e293b;
+  --color-muted: #64748b;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Poppins', 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-offwhite text-text font-sans antialiased transition-colors duration-300;
+  }
+
+  .dark body,
+  html.dark body {
+    @apply bg-slate-900 text-slate-100;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .card-shadow {
+    box-shadow: 0 4px 24px -4px rgba(11, 31, 58, 0.08);
+  }
+
+  .dark .card-shadow {
+    box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.35);
+  }
+
+  .hero-gradient {
+    background: linear-gradient(135deg, #0b1f3a 0%, #1e3a5f 50%, #2563eb 100%);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
