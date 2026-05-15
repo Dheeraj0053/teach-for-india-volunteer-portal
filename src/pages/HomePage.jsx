@@ -34,58 +34,83 @@ export default function HomePage() {
   const { isAuthenticated } = useAuth();
 
   return (
-  <>
-    <Hero />
+    <>
+      <Hero />
 
-    <section id="impact" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-      <div className="text-center max-w-2xl mx-auto">
-        <h2 className="font-display text-3xl font-bold text-navy dark:text-slate-100 sm:text-4xl">
-          Why volunteer with us?
-        </h2>
-        <p className="mt-4 text-muted text-lg">
-          Every child deserves an excellent education. Your time and talent can help
-          bridge the gap in under-resourced classrooms.
-        </p>
-      </div>
+      <section id="impact" className="bg-white py-16 dark:bg-slate-900 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-3xl font-bold text-navy dark:text-slate-100">
+              Why volunteer with us?
+            </h2>
+            <p className="mt-4 text-muted leading-relaxed">
+              Every child deserves an excellent education. Your time and talent can help
+              bridge the gap in under-resourced classrooms.
+            </p>
+          </div>
 
-      <div className="mt-12 grid gap-6 sm:grid-cols-3">
-        {stats.map((stat) => (
-          <Card key={stat.label} className="text-center" hover>
-            <p className="font-display text-3xl font-bold text-secondary">{stat.value}</p>
-            <p className="mt-2 text-muted">{stat.label}</p>
-          </Card>
-        ))}
-      </div>
-    </section>
-
-    <section className="bg-navy/5 dark:bg-slate-800/50 py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="font-display text-3xl font-bold text-center text-navy dark:text-slate-100 mb-12">
-          How it works
-        </h2>
-        <div className="grid gap-8 md:grid-cols-3">
-          {steps.map((step, i) => (
-            <Card key={step.title} hover>
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary/10 text-secondary mb-4">
-                <step.icon className="h-6 w-6" aria-hidden />
+          <div className="mt-12 grid gap-6 border-t border-slate-200 pt-12 sm:grid-cols-3 dark:border-slate-700">
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="font-display text-3xl font-bold text-navy dark:text-accent">
+                  {stat.value}
+                </p>
+                <p className="mt-2 text-sm text-muted">{stat.label}</p>
               </div>
-              <span className="text-xs font-bold text-accent uppercase tracking-wider">
-                Step {i + 1}
-              </span>
-              <h3 className="mt-2 font-display text-xl font-semibold text-text dark:text-slate-100">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-muted">{step.desc}</p>
-            </Card>
-          ))}
+            ))}
+          </div>
         </div>
-        <div className="mt-12 text-center">
-          <Link to={isAuthenticated ? ROUTES.REGISTER : ROUTES.SIGNUP}>
-            <Button size="lg">Register as a volunteer</Button>
+      </section>
+
+      <section className="border-t border-slate-200 bg-offwhite py-16 dark:border-slate-700 dark:bg-slate-950 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-3xl font-bold text-navy dark:text-slate-100">
+              How it works
+            </h2>
+            <p className="mt-3 text-muted">Three simple steps to start volunteering.</p>
+          </div>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {steps.map((step, i) => (
+              <Card key={step.title} className="bg-white dark:bg-slate-800">
+                <p className="text-sm font-semibold text-secondary">Step {i + 1}</p>
+                <div className="mt-4 flex h-10 w-10 items-center justify-center rounded-lg bg-navy/5 text-navy dark:bg-slate-700 dark:text-accent">
+                  <step.icon className="h-5 w-5" aria-hidden />
+                </div>
+                <h3 className="mt-4 font-display text-lg font-semibold text-navy dark:text-slate-100">
+                  {step.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{step.desc}</p>
+              </Card>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link to={isAuthenticated ? ROUTES.REGISTER : ROUTES.SIGNUP}>
+              <Button size="lg">Register as a volunteer</Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-slate-200 bg-white py-16 dark:border-slate-700 dark:bg-slate-900 sm:py-20">
+        <div className="mx-auto max-w-2xl px-4 text-center sm:px-6">
+          <h2 className="font-display text-2xl font-bold text-navy dark:text-slate-100 sm:text-3xl">
+            Ready to make a difference?
+          </h2>
+          <p className="mt-4 text-muted leading-relaxed">
+            Your journey starts with a single step. Join volunteers supporting classrooms
+            across India today.
+          </p>
+          <Link
+            to={isAuthenticated ? ROUTES.REGISTER : ROUTES.SIGNUP}
+            className="mt-8 inline-block"
+          >
+            <Button size="lg">Get started now</Button>
           </Link>
         </div>
-      </div>
-    </section>
-  </>
+      </section>
+    </>
   );
 }

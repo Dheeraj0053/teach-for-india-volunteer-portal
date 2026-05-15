@@ -1,82 +1,65 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Users, Sparkles, ArrowRight } from 'lucide-react';
-import Button from '../ui/Button';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { ROUTES } from '../../utils/constants';
 import { useAuth } from '../../context/AuthContext';
+import { HERO_IMAGE, FALLBACK_HERO } from '../../utils/images';
+import Button from '../ui/Button';
 
 export default function Hero() {
   const { isAuthenticated } = useAuth();
+  const [imgSrc, setImgSrc] = useState(HERO_IMAGE);
 
   return (
-    <section className="relative overflow-hidden hero-gradient text-white">
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-accent blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-secondary blur-3xl" />
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div className="animate-fade-in">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-accent backdrop-blur">
-              <Sparkles className="h-4 w-4" aria-hidden />
-              Join the movement
+    <section className="bg-offwhite dark:bg-slate-900">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
+          {/* Left — copy & CTAs */}
+          <div className="text-center lg:text-left">
+            <span className="inline-flex items-center gap-2 rounded-full bg-accent/25 px-4 py-1.5 text-sm font-medium text-navy dark:bg-accent/15 dark:text-accent">
+              <Sparkles className="h-4 w-4 shrink-0" aria-hidden />
+              Join the movement for educational equity
             </span>
-            <h1 className="mt-6 font-display text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
-              Empowering classrooms through volunteer support.
+
+            <h1 className="mt-6 font-display text-3xl font-bold leading-tight text-navy dark:text-slate-50 sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
+              Empowering classrooms through{' '}
+              <span className="text-secondary">volunteer support</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg text-slate-200 leading-relaxed">
-              Be part of Teach For India&apos;s mission to provide every child with an excellent
-              education. Register as a volunteer and bring your skills, time, and heart to
-              classrooms across India.
+
+            <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg">
+              Be part of Teach For India&apos;s mission. Register your skills, time, and
+              heart to support children in classrooms across India.
             </p>
-            <div className="mt-10 flex flex-wrap gap-4">
+
+            <p className="mt-4 font-display text-sm italic text-navy/75 dark:text-slate-400">
+              One day all children will attain an excellent education.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
               <Link to={isAuthenticated ? ROUTES.REGISTER : ROUTES.SIGNUP}>
                 <Button size="lg" className="group">
                   Start volunteering
-                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
                 </Button>
               </Link>
               <a href="#impact">
-                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-navy">
-                  Learn more
+                <Button variant="outline" size="lg">
+                  See our impact
                 </Button>
               </a>
             </div>
           </div>
 
-          <div className="relative hidden lg:block animate-fade-in">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-4">
-                <div className="rounded-2xl bg-white/10 p-6 backdrop-blur transition-transform hover:-translate-y-1">
-                  <BookOpen className="h-10 w-10 text-accent mb-4" aria-hidden />
-                  <p className="font-display font-semibold text-lg">Support Learning</p>
-                  <p className="mt-2 text-sm text-slate-300">
-                    Help students build confidence and curiosity in the classroom.
-                  </p>
-                </div>
-                <div className="rounded-2xl bg-accent/20 p-6 backdrop-blur transition-transform hover:-translate-y-1">
-                  <Users className="h-10 w-10 text-accent mb-4" aria-hidden />
-                  <p className="font-display font-semibold text-lg">33,500+</p>
-                  <p className="mt-2 text-sm text-slate-300">
-                    Students directly impacted in TFI classrooms.
-                  </p>
-                </div>
-              </div>
-              <div className="mt-8 space-y-4">
-                <div className="rounded-2xl bg-secondary/30 p-6 backdrop-blur transition-transform hover:-translate-y-1">
-                  <Sparkles className="h-10 w-10 text-accent mb-4" aria-hidden />
-                  <p className="font-display font-semibold text-lg">Make an Impact</p>
-                  <p className="mt-2 text-sm text-slate-300">
-                    Join a community of leaders working for educational equity.
-                  </p>
-                </div>
-                <div className="rounded-2xl bg-white/10 p-8 backdrop-blur flex items-center justify-center min-h-[140px]">
-                  <p className="text-center font-display text-2xl font-bold text-accent">
-                    One day, all children will attain an excellent education.
-                  </p>
-                </div>
-              </div>
-            </div>
+          {/* Right — volunteer banner */}
+          <div className="flex justify-center lg:justify-end">
+            <img
+              src={imgSrc}
+              alt="We love our Volunteers — Thank you for being the heart of change"
+              className="w-full max-w-lg rounded-2xl object-contain card-shadow ring-1 ring-slate-200/60 dark:ring-slate-700 lg:max-w-none"
+              onError={() => {
+                if (imgSrc !== FALLBACK_HERO) setImgSrc(FALLBACK_HERO);
+              }}
+            />
           </div>
         </div>
       </div>
