@@ -3,6 +3,7 @@ import { GraduationCap, HandHeart, Target } from 'lucide-react';
 import Hero from '../components/home/Hero';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
+import CountUpStat from '../components/ui/CountUpStat';
 import { ROUTES } from '../utils/constants';
 import { useAuth } from '../context/AuthContext';
 
@@ -51,12 +52,7 @@ export default function HomePage() {
 
           <div className="mt-12 grid gap-6 border-t border-slate-200 pt-12 sm:grid-cols-3 dark:border-slate-700">
             {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="font-display text-3xl font-bold text-navy dark:text-accent">
-                  {stat.value}
-                </p>
-                <p className="mt-2 text-sm text-muted">{stat.label}</p>
-              </div>
+              <CountUpStat key={stat.label} value={stat.value} label={stat.label} />
             ))}
           </div>
         </div>
