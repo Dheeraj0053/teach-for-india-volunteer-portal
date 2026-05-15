@@ -12,10 +12,22 @@ export default function Hero() {
 
   return (
     <section className="bg-offwhite dark:bg-slate-900">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
-          {/* Left — copy & CTAs */}
-          <div className="text-center lg:text-left">
+      <div className="mx-auto max-w-7xl px-4 pt-6 pb-12 sm:px-6 sm:pt-8 lg:px-8 lg:py-16">
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+          {/* Mobile: image right after header. Desktop: right column */}
+          <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
+            <img
+              src={imgSrc}
+              alt="We love our Volunteers — Thank you for being the heart of change"
+              className="w-full max-w-lg rounded-2xl object-contain card-shadow ring-1 ring-slate-200/60 dark:ring-slate-700 lg:max-w-none"
+              onError={() => {
+                if (imgSrc !== FALLBACK_HERO) setImgSrc(FALLBACK_HERO);
+              }}
+            />
+          </div>
+
+          {/* Mobile: badge + text below image. Desktop: left column */}
+          <div className="order-2 text-center lg:order-1 lg:text-left">
             <span className="inline-flex items-center gap-2 rounded-full bg-accent/25 px-4 py-1.5 text-sm font-medium text-navy dark:bg-accent/15 dark:text-accent">
               <Sparkles className="h-4 w-4 shrink-0" aria-hidden />
               Join the movement for educational equity
@@ -48,18 +60,6 @@ export default function Hero() {
                 </Button>
               </a>
             </div>
-          </div>
-
-          {/* Right — volunteer banner */}
-          <div className="flex justify-center lg:justify-end">
-            <img
-              src={imgSrc}
-              alt="We love our Volunteers — Thank you for being the heart of change"
-              className="w-full max-w-lg rounded-2xl object-contain card-shadow ring-1 ring-slate-200/60 dark:ring-slate-700 lg:max-w-none"
-              onError={() => {
-                if (imgSrc !== FALLBACK_HERO) setImgSrc(FALLBACK_HERO);
-              }}
-            />
           </div>
         </div>
       </div>
